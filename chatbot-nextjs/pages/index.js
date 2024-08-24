@@ -23,6 +23,13 @@ export default function Home() {
         setInput('');
     };
 
+    // Fungsi untuk menangani pengiriman dengan tombol Enter
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleSendMessage();
+        }
+    };
+
     return (
         <div style={{ 
             height: '100vh', 
@@ -61,16 +68,41 @@ export default function Home() {
                                 marginBottom: '10px',
                             }}
                         >
-                            <div style={{ 
-                                maxWidth: '70%', 
-                                padding: '10px', 
-                                borderRadius: '15px', 
-                                backgroundColor: msg.sender === 'user' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)', 
-                                color: msg.sender === 'user' ? '#000' : '#fff', // Different text colors
-                                backdropFilter: 'blur(10px)', // Glass effect for bubbles
-                                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)', // Shadow for depth
+                            {/* Icon di samping pesan */}
+                            <div style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '10px', // Jarak antara icon dan teks
+                                maxWidth: '70%',
                             }}>
-                                {msg.text}
+                                {msg.sender === 'user' ? null : (
+                                    <Image 
+                                        src="/user.png" // Tambahkan path ke icon yang Anda inginkan
+                                        alt="Bot Icon"
+                                        width={30}
+                                        height={30}
+                                    />
+                                )}
+                                
+                                <div style={{ 
+                                    padding: '10px', 
+                                    borderRadius: '15px', 
+                                    backgroundColor: msg.sender === 'user' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)', 
+                                    color: msg.sender === 'user' ? '#000' : '#fff', // Different text colors
+                                    backdropFilter: 'blur(10px)', // Glass effect for bubbles
+                                    boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)', // Shadow for depth
+                                }}>
+                                    {msg.text}
+                                </div>
+                                
+                                {msg.sender === 'user' && (
+                                    <Image 
+                                        src="/user.png" // Tambahkan path ke icon yang Anda inginkan
+                                        alt="User Icon"
+                                        width={30}
+                                        height={30}
+                                    />
+                                )}
                             </div>
                         </div>
                     ))}
@@ -80,6 +112,7 @@ export default function Home() {
                         type="text"
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
+                        onKeyPress={handleKeyPress} // Menangani event tekan Enter
                         style={{ 
                             flex: '1', 
                             padding: '10px', 
