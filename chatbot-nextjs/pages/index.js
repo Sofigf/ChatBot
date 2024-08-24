@@ -26,7 +26,7 @@ export default function Home() {
     });
 
     const data = await response.json();
-    setMessages([...messages, { sender: 'user', text: input }, { sender: 'bot', text: data.response }]);
+    setMessages([...messages, { sender: 'bot', text: data.response }]);
     setInput('');
   };
 
@@ -38,9 +38,9 @@ export default function Home() {
       <div style={{ padding: '20px', maxWidth: '600px', margin: 'auto', backgroundColor: '#fff', borderRadius: '5px', boxShadow: '0px 2px 5px rgba(0, 0, 0, 0.1)' }}> {/* Chat Box with Rounded Corners and Shadow */}
         <div style={{ border: 'none', borderRadius: '4px', padding: '15px', height: '400px', overflowY: 'scroll' }} ref={chatHistoryRef}>
           {messages.map((msg, index) => (
-            <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}> {/* Added Spacing Between Bubbles */}
+            <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: msg.sender === 'user' ? '20px' : '10px' }}> {/* Added Spacing Between Bubbles */}
               {msg.sender === 'user' && (
-                <img src="public/user_icon.png" alt="User Icon" style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '10px' }} />
+                <img src="public/bg.jpg" alt="User Icon" style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '10px' }} />
               )}
               {msg.sender === 'bot' && (
                 <img src="public/bot_icon.png" alt="Bot Icon" style={{ width: '30px', height: '30px', borderRadius: '50%', marginLeft: '10px' }} />
