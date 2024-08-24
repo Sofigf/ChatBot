@@ -25,70 +25,85 @@ export default function Home() {
 
     return (
         <div style={{ 
-            padding: '20px', 
-            maxWidth: '600px', 
-            margin: 'auto', 
+            height: '100vh', 
+            width: '100vw', 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
             backgroundImage: 'url(/bg.jpg)', // Set the background image
-            backgroundSize: 'cover', // Ensure the image covers the entire background
-            backgroundAttachment: 'fixed', // Keep the background image fixed
-            backgroundPosition: 'center', // Center the background image
-            backgroundRepeat: 'no-repeat' // Avoid repeating the image
+            backgroundSize: 'cover', 
+            backgroundPosition: 'center', 
+            backgroundAttachment: 'fixed',
         }}>
             <div style={{ 
-                border: '1px solid #ccc', 
-                borderRadius: '4px', 
-                padding: '10px', 
-                height: '400px', 
-                overflowY: 'scroll',
-                backgroundColor: 'rgba(255, 255, 255, 0.8)' // Slightly transparent white background
+                width: '100%', 
+                maxWidth: '600px', 
+                padding: '20px', 
+                borderRadius: '20px', 
+                backdropFilter: 'blur(10px)', // Apply glassmorphism blur
+                backgroundColor: 'rgba(255, 255, 255, 0.2)', // Semi-transparent background
+                boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)', // Optional shadow for better depth
+                border: '1px solid rgba(255, 255, 255, 0.3)', // Border for glass effect
             }}>
-                {messages.map((msg, index) => (
-                    <div 
-                        key={index} 
+                <div style={{ 
+                    height: '400px', 
+                    overflowY: 'scroll', 
+                    padding: '10px', 
+                    backgroundColor: 'rgba(255, 255, 255, 0.6)', // Slightly transparent white background inside chat
+                    borderRadius: '10px',
+                }}>
+                    {messages.map((msg, index) => (
+                        <div 
+                            key={index} 
+                            style={{ 
+                                display: 'flex', 
+                                justifyContent: msg.sender === 'user' ? 'flex-end' : 'flex-start', 
+                                marginBottom: '10px',
+                            }}
+                        >
+                            <div style={{ 
+                                maxWidth: '70%', 
+                                padding: '10px', 
+                                borderRadius: '15px', 
+                                backgroundColor: msg.sender === 'user' ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)', 
+                                color: msg.sender === 'user' ? '#000' : '#fff', // Different text colors
+                                backdropFilter: 'blur(10px)', // Glass effect for bubbles
+                                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)', // Shadow for depth
+                            }}>
+                                {msg.text}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <div style={{ display: 'flex', marginTop: '10px' }}>
+                    <input
+                        type="text"
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
                         style={{ 
-                            textAlign: msg.sender === 'user' ? 'right' : 'left',
-                            marginBottom: '10px' // Add space between messages
+                            flex: '1', 
+                            padding: '10px', 
+                            borderRadius: '10px', 
+                            border: '1px solid #ccc', 
+                            backdropFilter: 'blur(5px)', // Slight blur on input
+                        }}
+                    />
+                    <button 
+                        onClick={handleSendMessage} 
+                        style={{ 
+                            marginLeft: '10px', 
+                            padding: '10px 20px', 
+                            borderRadius: '10px', 
+                            border: 'none', 
+                            backgroundColor: '#007bff', 
+                            color: '#fff', 
+                            cursor: 'pointer', 
+                            boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)', // Button shadow for depth
                         }}
                     >
-                        <div style={{ 
-                            display: 'inline-block', 
-                            padding: '10px', 
-                            borderRadius: '4px', 
-                            backgroundColor: msg.sender === 'user' ? '#d1e7dd' : '#f8d7da',
-                            marginLeft: msg.sender === 'user' ? '10px' : '0',
-                            marginRight: msg.sender === 'user' ? '0' : '10px'
-                        }}>
-                            {msg.text}
-                        </div>
-                    </div>
-                ))}
-            </div>
-            <div style={{ marginTop: '10px' }}>
-                <input
-                    type="text"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    style={{ 
-                        width: '80%', 
-                        padding: '10px', 
-                        borderRadius: '4px', 
-                        border: '1px solid #ccc' 
-                    }}
-                />
-                <button 
-                    onClick={handleSendMessage} 
-                    style={{ 
-                        width: '18%', 
-                        padding: '10px', 
-                        borderRadius: '4px', 
-                        border: '1px solid #ccc', 
-                        backgroundColor: '#007bff', 
-                        color: '#fff', 
-                        marginLeft: '2%' 
-                    }}
-                >
-                    Send
-                </button>
+                        Send
+                    </button>
+                </div>
             </div>
         </div>
     );
