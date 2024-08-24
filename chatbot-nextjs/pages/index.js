@@ -38,9 +38,6 @@ export default function Home() {
       <div style={{ border: '1px solid #ccc', borderRadius: '4px', padding: '15px', height: '400px', overflowY: 'scroll', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(5px) saturate(180%)' }} ref={chatHistoryRef}>
         {messages.map((msg, index) => (
           <div key={index} style={{ textAlign: msg.sender === 'user' ? 'right' : 'left' }}>
-            {index > 0 && msg.sender !== messages[index - 1].sender && (
-            <div style={{ height: 10px }} /> // Add space only between different senders
-            )}
             <div style={{ display: 'inline-block', padding: '10px', borderRadius: '5px', backgroundColor: msg.sender === 'user' ? '#d1e7dd' : '#f8d7da' }}>
               {msg.sender === 'user' && <span style={{ fontWeight: 'bold' }}>You:</span>}
               {msg.text}
