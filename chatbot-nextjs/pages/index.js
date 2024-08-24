@@ -31,8 +31,11 @@ export default function Home() {
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '600px', margin: 'auto' }}>
-      <div style={{ border: '1px solid #ccc', borderRadius: '4px', padding: '15px', height: '400px', overflowY: 'scroll', backgroundColor: '#f0f0f0' }} ref={chatHistoryRef}>
+    <div style={{ padding: '20px', maxWidth: '600px', margin: 'auto', position: 'relative' }}>
+      {/* Background Image (Optional) */}
+      <img src="path/to/your/background.jpg" alt="Background Image" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', filter: 'blur(5px)', opacity: 0.2, z-index: -1 }} />
+
+      <div style={{ border: '1px solid #ccc', borderRadius: '4px', padding: '15px', height: '400px', overflowY: 'scroll', backgroundColor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(5px) saturate(180%)' }} ref={chatHistoryRef}>
         {messages.map((msg, index) => (
           <div key={index} style={{ textAlign: msg.sender === 'user' ? 'right' : 'left' }}>
             <div style={{ display: 'inline-block', padding: '10px', borderRadius: '5px', backgroundColor: msg.sender === 'user' ? '#d1e7dd' : '#f8d7da' }}>
